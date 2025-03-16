@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 const UserShema = new mongoose.Schema({
@@ -27,7 +27,7 @@ const UserShema = new mongoose.Schema({
 // Before saving the password
 UserShema.pre('save',async function(){
 if(!this.isModified('Password')) return
-    this.Password = await bcrypt.hash(this.Password,10)
+    this.Password =  bcrypt.hash(this.Password,10)
 })
 
 // Checking the password 
